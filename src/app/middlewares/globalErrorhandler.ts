@@ -10,7 +10,7 @@ import AppError from '../errors/appError';
 
 
 
-const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
+const globalErrorHandler: ErrorRequestHandler = (err, req, res) => {
   let statusCode = 500;
   let message = 'Something went wrong!';
   let errorSources: ErrorSources = [

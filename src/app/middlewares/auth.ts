@@ -5,7 +5,7 @@ import httpStatus from 'http-status';
 import catchAsync from '../utils/catchAsync';
 import AppError from '../errors/appError';
 import { UserModel } from '../modules/User/user.model';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt, { JwtPayload, } from 'jsonwebtoken';
 
 
 const sliptToken = (authHeader: string | undefined): string | null => {
@@ -38,7 +38,7 @@ export const auth = (...requiredRoles: (keyof typeof USER_ROLE)[]) => {
         config.jwt_access_secret as string
       );
   
-      const { role, email, iat } = verfiedToken as JwtPayload;
+      const { role, email} = verfiedToken as JwtPayload;
   
       const user = await UserModel.findOne({ email });
   

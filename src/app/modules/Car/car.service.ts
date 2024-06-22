@@ -1,5 +1,4 @@
-import httpStatus from "http-status";
-import mongoose from "mongoose";
+
 import QueryBuilder from "../../builder/querybuilder";
 import { Car } from "./car.interface";
 import { CarModel } from "./car.model";
@@ -46,15 +45,15 @@ const deleteCarIntoDB = async(id: string) =>{
 
 
 const returnCarService = async (bookingId: string, endTime: string) => {
-  try {
-      // Find the booking by ID and populate the associated user and car
+  
+      
       const booking = await BookingModel.findById(bookingId).populate('carId').populate('userId');
 
       if (!booking) {
           throw new Error('Booking not found');
       }
       calculateTotalCost
-      // Update the car status to 'available'
+
       const car = await CarModel.findByIdAndUpdate(
           booking.carId,
           { status: 'available' },
@@ -65,10 +64,10 @@ const returnCarService = async (bookingId: string, endTime: string) => {
           throw new Error('Car not found');
       }
 
-      // Calculate total cost based on the difference between startTime and endTime
+     
       const totalCost = calculateTotalCost(booking.startTime, endTime, car.pricePerHour);
 
-      // Update the booking with new endTime and totalCost
+
       const updatedBooking = await BookingModel.findByIdAndUpdate(
           bookingId,
           { endTime, totalCost },
@@ -80,9 +79,7 @@ const returnCarService = async (bookingId: string, endTime: string) => {
       }
 
       return updatedBooking;
-  } catch (error) {
-      throw error; // Throw any errors encountered for centralized error handling
-  }
+ 
 };
 
 
